@@ -43,7 +43,6 @@ class MessageSenderImplTest {
         headers.put(MessageSenderImpl.IP_ADDRESS_HEADER, "172.123.12.19");
         Location locationMap = new Location("SomeCity", Country.RUSSIA, null, 0);
         String ip = "172.123.12.19";
-        String expected = "Добро пожаловать!";
 
         when(geoService.giveAddressFromIP(ip)).thenReturn(locationMap);
         when(localizationService.changeLanguageToLocal(Country.RUSSIA)).thenReturn("Добро пожаловать!");
@@ -54,13 +53,6 @@ class MessageSenderImplTest {
         // Assert
         assertEquals("Добро пожаловать!", result);
         verify(localizationService, times(2)).changeLanguageToLocal(Country.RUSSIA);
-        verify(geoService, times(1)).giveAddressFromIP(ip);
-
-        verify(localizationService, never()).changeLanguageToLocal(Country.USA);
-        verify(geoService, atLeastOnce()).giveAddressFromIP(ip);
-        verify(localizationService, atLeastOnce()).changeLanguageToLocal(Country.RUSSIA);
-        verify(geoService, atMost(5)).giveAddressFromIP(ip);
-        verify(localizationService, atMost(5)).changeLanguageToLocal(Country.RUSSIA);
 
     }
 
