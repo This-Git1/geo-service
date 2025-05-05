@@ -19,13 +19,21 @@ public class MessageSenderImpl implements MessageSender {
         this.localizationService = localizationService;
     }
 
+    /* TODO
+    * метод упадет если IP не передан (headers пустой)
+     */
     public String send(Map<String, String> headers) {
         String ipAddress = String.valueOf(headers.get(IP_ADDRESS_HEADER));
         if (ipAddress != null && !ipAddress.isEmpty()) {
-            Location location = geoService.byIp(ipAddress);
-            System.out.printf("Отправлено сообщение: %s", localizationService.locale(location.getCountry()));
-            return localizationService.locale(location.getCountry());
+            Location location = geoService.giveAddressFromIP(ipAddress);
+            System.out.printf("Отправлено сообщение: %s",
+                    localizationService.changeLanguageToLocal(location.getCountry()));
+
+            return localizationService.changeLanguageToLocal(location.getCountry());
         }
-        return localizationService.locale(Country.USA);
+        return localizationService.changeLanguageToLocal(Country.USA);
     }
+
+
+
 }

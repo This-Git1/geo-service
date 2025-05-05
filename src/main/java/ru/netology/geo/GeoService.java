@@ -4,7 +4,7 @@ import ru.netology.entity.Location;
 
 public interface GeoService {
 
-    Location byIp(String ip);
+    Location giveAddressFromIP(String ip);
 
     Location byCoordinates(double latitude, double longitude);
 }

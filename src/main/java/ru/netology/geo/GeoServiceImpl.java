@@ -3,6 +3,8 @@ package ru.netology.geo;
 import ru.netology.entity.Country;
 import ru.netology.entity.Location;
 
+import java.util.Objects;
+
 public class GeoServiceImpl implements GeoService {
 
     public static final String LOCALHOST = "127.0.0.1";
@@ -12,7 +14,8 @@ public class GeoServiceImpl implements GeoService {
     /**
      * Метод определяет локацию по ip
      */
-    public Location byIp(String ip) {
+    // TODO пменять название на более информативное giveAddressFromIP
+    public Location giveAddressFromIP(String ip) {
         if (LOCALHOST.equals(ip)) {
             return new Location(null, null, null, 0);
         } else if (MOSCOW_IP.equals(ip)) {
@@ -33,4 +36,10 @@ public class GeoServiceImpl implements GeoService {
     public Location byCoordinates(double latitude, double longitude) {
         throw new RuntimeException("Not implemented");
     }
+
+
+
+
+
 }
+
